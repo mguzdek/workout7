@@ -26,6 +26,7 @@
     </app-exercise-details>
 </div>
 <div id="exercise-pane" class="col-sm-6">  
+    <h4 class="text-center">Workout Remaining - {{workoutTimeRemaining | secondsToTime}}</h4>
     <h1 class="text-center">{{currentExercise.title}}</h1>
     <div class="image-container row">
       <img class="img-fluid col-sm" [src]="'/assets/images/' + currentExercise.image" />

@@ -14,6 +14,7 @@ export class StartupComponent implements OnInit {
   currentExerciseIndex: number;
   currentExercise: Exercise;
   exerciseRunningDuration: number;
+  exerciseTrackingInterval: number;
 
   constructor() { }
 
@@ -28,25 +29,8 @@ export class StartupComponent implements OnInit {
   startExercise(exercise: Exercise) {
     this.currentExercise = exercise;
     this.exerciseRunningDuration = 0;
-    const intervalId = setInterval(() =>
-        {
-          if(this.exerciseRunningDuration >= this.currentExercise.duration){
-            clearInterval(intervalId);
-            const next: Exercise = this.getNextExercise();
-            if(next){
-              if(next !== this.restExercise){
-                this.currentExerciseIndex++;
-              }
-              this.startExercise(next);
-            }
-            else {
-              console.log('Workout complete!');
-            }
-          }
-          else {
-            this.exerciseRunningDuration++;
-          }
-        }, 1000);
+    
+    this.startExerciseTimeTracking();
   }
   
   start() {
@@ -54,6 +38,27 @@ export class StartupComponent implements OnInit {
     this.currentExerciseIndex = 0;
     this.startExercise(this.workout.exercises[this.currentExerciseIndex]);
   }
+
+  startExerciseTimeTracking() {
+    this.exerciseTrackingInterval = window.setInterval(() => {
+      if (this.exerciseRunningDuration >= this.currentExercise.duration) {
+        clearInterval(this.exerciseTrackingInterval);
+        const next: Exercise = this.getNextExercise();
+        if (next) {
+          if (next !== this.restExercise) {
+            this.currentExerciseIndex++;
+          }
+          this.startExercise(next);
+        }
+        else {
+          console.log('Workout complete!');
+        }
+        return;
+      }
+      ++this.exerciseRunningDuration;
+      --this.workoutTimeRemaining;
+    }, 1000);
+  }  
 
   getNextExercise(): Exercise {
     let nextExercise: Exercise = null;
@@ -77,9 +82,9 @@ export class StartupComponent implements OnInit {
           'JumpingJacks.png',
           30,
           'jumpingjacks.wav',
-          `Assume an erect position, with feet together and arms at your side.
-                            Slightly bend your knees, and propel yourself a few inches into the air.
-                            While in air, bring your legs out to the side about shoulder width or slightly wider.
+          `Assume an erect position, with feet together and arms at your side. <br> 
+          Slightly bend your knees, and propel yourself a few inches into the air. <br> 
+          While in air, bring your legs out to the side about shoulder width or slightly wider. <br> 
                             As you are moving your legs outward, you should raise your arms up over your head; arms should be
                             slightly bent throughout the entire in-air movement.
                             Your feet should land shoulder width or wider as your hands meet above your head with arms slightly bent`,

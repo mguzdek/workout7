@@ -5,13 +5,15 @@ import { AppComponent } from './app.component';
 import { StartupComponent } from './startup/startup.component';
 import { ExerciseDetailsComponent } from './exercise-details/exercise-details.component';
 import { YtPlayerComponent } from './yt-player/yt-player.component';
+import { SecondsToTimePipe } from './common/seconds-to-time.pipe';
 
 @NgModule({
   declarations: [
     AppComponent,
     StartupComponent,
     ExerciseDetailsComponent,
-    YtPlayerComponent
+    YtPlayerComponent,
+    SecondsToTimePipe
   ],
   imports: [
     BrowserModule
