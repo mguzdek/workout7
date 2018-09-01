@@ -1,6 +1,6 @@
+import { Exercise } from './../Models/exercise';
 import { Component, OnInit } from '@angular/core';
 import { Workout } from '../Models/workout';
-import { Exercise } from '../Models/exercise';
 
 @Component({
   selector: 'app-startup',
@@ -8,7 +8,6 @@ import { Exercise } from '../Models/exercise';
   styleUrls: ['./startup.component.css']
 })
 export class StartupComponent implements OnInit {
-
   workout: Workout;
   workoutTimeRemaining: number;
   restExercise: Exercise;
@@ -19,6 +18,53 @@ export class StartupComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
+    this.workout = this.buildWorkout();
+    this.restExercise = new Exercise(
+      'rest', 'Relax', 'Relax a bit', 'rest.png', this.workout.restBetweenExercise
+    );
+    this.start();
+  }
+
+  startExercise(exercise: Exercise) {
+    this.currentExercise = exercise;
+    this.exerciseRunningDuration = 0;
+    const intervalId = setInterval(() =>
+        {
+          if(this.exerciseRunningDuration >= this.currentExercise.duration){
+            clearInterval(intervalId);
+            const next: Exercise = this.getNextExercise();
+            if(next){
+              if(next !== this.restExercise){
+                this.currentExerciseIndex++;
+              }
+              this.startExercise(next);
+            }
+            else {
+              console.log('Workout complete!');
+            }
+          }
+          else {
+            this.exerciseRunningDuration++;
+          }
+        }, 1000);
+  }
+  
+  start() {
+    this.workoutTimeRemaining = this.workout.totalWorkoutDuration();
+    this.currentExerciseIndex = 0;
+    this.startExercise(this.workout.exercises[this.currentExerciseIndex]);
+  }
+
+  getNextExercise(): Exercise {
+    let nextExercise: Exercise = null;
+    if (this.currentExercise === this.restExercise) {
+      nextExercise = this.workout.exercises[this.currentExerciseIndex + 1];
+    }
+    else if (this.currentExerciseIndex < this.workout.exercises.length - 1) {
+      nextExercise = this.restExercise;
+    }
+
+    return nextExercise;
   }
 
   buildWorkout(): Workout {
