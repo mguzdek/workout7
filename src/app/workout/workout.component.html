@@ -44,6 +44,10 @@
           <strong>{{workout.exercises[currentExerciseIndex + 1].title}}</strong>
         </h4>
       </div>
+      <div id="pause-overlay" (window:keyup)="onKeyPressed($event)" (click)="pauseResumeToggle()"><span class="pause absolute-center" 
+        [ngClass]="{'ion-md-pause' : !workoutPaused, 'ion-md-play' : workoutPaused}">
+    </span>
+</div> 
   </div>
 </div>
 <div id="video-panel" class="col-sm-3">

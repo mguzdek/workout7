@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { StartupComponent } from './startup.component';
+import { WorkoutHistoryComponent } from './workout-history.component';
 
-describe('StartupComponent', () => {
-  let component: StartupComponent;
-  let fixture: ComponentFixture<StartupComponent>;
+describe('WorkoutHistoryComponent', () => {
+  let component: WorkoutHistoryComponent;
+  let fixture: ComponentFixture<WorkoutHistoryComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ StartupComponent ]
+      declarations: [ WorkoutHistoryComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(StartupComponent);
+    fixture = TestBed.createComponent(WorkoutHistoryComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

@@ -1,5 +1,5 @@
 import { ExerciseDetailsComponent } from './../exercise-details/exercise-details.component';
-import { StartupComponent } from './startup.component';
+import { WorkoutComponent } from './workout.component';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
@@ -9,10 +9,10 @@ import { CommonModule } from '@angular/common';
     ExerciseDetailsComponent
   ],
   exports: [
-    StartupComponent,
+    WorkoutComponent,
     ExerciseDetailsComponent
     
   ],
-  declarations: [StartupComponent, ExerciseDetailsComponent]
+  declarations: [WorkoutComponent, ExerciseDetailsComponent]
 })
-export class StartupModule { }
+export class WorkoutModule { }
